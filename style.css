@@ -1,0 +1,579 @@
+/* -------------------------------------------------------------------------- */
+/* 0. CUSTOM FONT FACE - COOLVETICA REGULAR */
+/* -------------------------------------------------------------------------- */
+@font-face {
+    font-family: 'Coolvetica Regular';
+    src: url('path/to/fonts/Coolvetica-Regular.woff2') format('woff2'),
+          url('path/to/fonts/Coolvetica-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; 
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* 1. VARIABLES & RESET */
+/* -------------------------------------------------------------------------- */
+
+:root {
+    /* Color Palette */
+    --bg-primary: #0a0e14;          /* Very Dark Blue/Black */
+    --bg-secondary: #121822;        /* Used for dark sections/cards */
+    --text-primary: #e6eef5;        /* Off-White for main text */
+    --text-secondary: #a0aab8;      /* Subtle Gray for description */
+    --accent-main: #00e0ff;         /* Bright Cyan/Neon Blue (Retained for main action/primary glow) */
+    --accent-professional: #6aa3ff; /* New: Professional Light Blue */
+    --accent-contrast: #c0c0c0;     /* New: Subtle Silver/White for contrast */
+
+    /* Typography */
+    --font-body: 'Coolvetica Regular', sans-serif;
+    --font-display: 'Coolvetica Regular', sans-serif;
+    
+    /* Spacing & Radius */
+    --radius: 8px; /* Slightly reduced for a cleaner look */
+    --spacing: 24px;
+
+    /* Shadows & Glows - Less aggressive */
+    --glow-soft: 0 0 8px rgba(0, 224, 255, 0.2); /* Reduced opacity */
+    --shadow-deep: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Global Reset and Base Styles */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+img { max-width: 100%; display: block; border-radius: var(--radius); }
+a { color: var(--accent-professional); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--accent-main); } /* Hover remains Cyan for clarity */
+
+.container { width: min(1200px, 92vw); margin: 0 auto; }
+.section { padding: 100px 0; }
+.section-dark { background-color: var(--bg-secondary); }
+
+/* Grid Layouts */
+.grid { display: grid; gap: var(--spacing); }
+
+/* -------------------------------------------------------------------------- */
+/* 2. TYPOGRAPHY & TITLES */
+/* -------------------------------------------------------------------------- */
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px);
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text-primary); /* Ensuring titles are highly visible */
+}
+.section-desc {
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    font-size: 1.1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. NAVBAR */
+/* -------------------------------------------------------------------------- */
+.header {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(10, 14, 20, 0.9); /* Slight opacity change */
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+.logo { font-family: var(--font-display); font-size: 28px; font-weight: 800; }
+.logo span { 
+    color: var(--accent-main); /* Keep Cyan for logo accent */
+    text-shadow: 0 0 5px rgba(0, 224, 255, 0.3); /* Subtle logo glow */
+}
+
+.nav-list { display: flex; list-style: none; margin: 0; padding: 0; gap: 30px; }
+.nav-list a { 
+    font-weight: 600; font-size: 1rem; padding: 8px 0; position: relative;
+    letter-spacing: 0.5px;
+    color: var(--text-primary); /* Default link color set to main text */
+}
+.nav-list a:hover { color: var(--accent-main); }
+.nav-list a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--accent-main); transition: width 0.3s;
+}
+.nav-list a:hover::after { width: 100%; }
+
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 5px; }
+.nav-toggle span { display: block; width: 25px; height: 3px; background: var(--text-primary); margin: 4px 0; transition: 0.3s; }
+
+/* -------------------------------------------------------------------------- */
+/* 4. BUTTONS & GLOW EFFECT - Reduced Glow */
+/* -------------------------------------------------------------------------- */
+.btn {
+    display: inline-block; padding: 14px 28px; border-radius: var(--radius); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 2px solid transparent;
+}
+.btn-primary { 
+    background-color: var(--accent-main); color: var(--bg-primary); 
+    box-shadow: 0 0 10px rgba(0, 224, 255, 0.3); /* Reduced glow */
+}
+.btn-secondary {
+    background: none; border-color: var(--accent-professional); color: var(--accent-professional); /* Changed to professional blue */
+}
+
+/* Glowing/Animated Hover Effect - Reduced strength */
+.btn-glow:hover {
+    transform: scale(1.03) translateY(-1px); /* More subtle animation */
+    box-shadow: 
+        0 0 15px rgba(0, 224, 255, 0.5), /* Softer outer glow */
+        inset 0 0 5px rgba(0, 224, 255, 0.2); /* Softer inner glow */
+}
+.btn-secondary:hover {
+    color: var(--bg-primary); /* Text color changes to dark */
+    background-color: var(--accent-professional);
+    border-color: var(--accent-professional);
+    box-shadow: 0 0 10px rgba(106, 163, 255, 0.6); /* Subtle blue glow */
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. HERO SECTION */
+/* -------------------------------------------------------------------------- */
+.hero { padding-top: 150px; padding-bottom: 120px; position: relative; overflow: hidden; }
+.hero-inner { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; gap: 60px; }
+
+.hero-content { font-weight: normal; }
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(50px, 8vw, 100px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+.hero-title .stroke-text {
+    /* Subtle outline effect */
+    -webkit-text-stroke: 1px var(--accent-professional); /* Changed to professional blue */
+    color: transparent;
+    text-shadow: 0 0 5px rgba(106, 163, 255, 0.1);
+}
+.hero-title .accent-text {
+    color: var(--accent-contrast); /* Changed to subtle silver/white */
+    text-shadow: none; /* Removed glow */
+}
+.hero-subtitle { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 40px; }
+.hero-cta { display: flex; gap: 15px; flex-wrap: wrap; }
+
+.floating-asset {
+    position: relative;
+    width: 300px; height: 300px;
+    margin: 0 auto;
+    animation: float 6s ease-in-out infinite;
+}
+.ring-pulse {
+    position: absolute; inset: 0;
+    border: 2px solid var(--accent-professional); /* Changed to professional blue */
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+.asset-card {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: var(--bg-secondary);
+    padding: 20px; border-radius: var(--radius);
+    text-align: center; font-weight: 700;
+    border: 1px solid var(--accent-professional); /* Changed to professional blue */
+    box-shadow: var(--shadow-deep);
+}
+.asset-card i { font-size: 30px; color: var(--accent-professional); margin-top: 10px; }
+
+/* -------------------------------------------------------------------------- */
+/* 6. THUMBNAILS & VIDEOS - Added Hover Effect */
+/* -------------------------------------------------------------------------- */
+.thumb-card {
+    object-fit: cover   ;
+}
+.thumbnails-grid { grid-template-columns: repeat(4, 1fr); }
+.thumb-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-deep);
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    border: 1px solid transparent; /* Added base border */
+}
+.thumb-card:hover { 
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 10px var(--accent-main);
+    border-color: var(--accent-main); /* Cyan border on hover */
+}
+.thumb-card img { aspect-ratio: 16/9; object-fit: cover; }
+.thumb-card figcaption { padding: 12px; font-size: 0.9rem; color: var(--text-secondary); }
+
+/* Vertical Video Styling (9:16) - Added Hover Effect */
+.videos-grid { grid-template-columns: repeat(4, 1fr); }
+.video-card { 
+    background: var(--bg-secondary); border-radius: var(--radius); 
+    box-shadow: var(--shadow-deep); overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    border: 1px solid transparent; /* Added base border */
+}
+.video-card:hover { 
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 10px var(--accent-professional); /* Subtle Blue Glow */
+    border-color: var(--accent-professional); /* Blue border on hover */
+}
+.video-ratio-box {
+    position: relative; 
+    width: 100%;
+    /* 9:16 aspect ratio */
+    padding-top: calc(100% / 9 * 16); 
+    overflow: hidden;
+}
+.video-ratio-box iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+}
+.video-caption { 
+    padding: 12px; font-size: 0.9rem; color: var(--text-secondary); 
+    text-align: center; margin: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 7. ABOUT SECTION (Circle Image) - Professional Look */
+/* -------------------------------------------------------------------------- */
+.about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: center; gap: 60px; }
+.about-content { max-width: 600px; }
+.about-stats { list-style: none; padding: 0; margin-top: 25px; display: grid; gap: 10px; }
+.about-stats li { font-weight: 600; }
+.about-stats i { color: var(--accent-professional); margin-right: 10px; } /* Changed to professional blue */
+
+.profile-circle {
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    /* Changed gradient to professional blue/cyan blend - Removed intense pink glow */
+    background: linear-gradient(135deg, var(--accent-professional) 0%, var(--accent-main) 100%); 
+    padding: 4px; /* Reduced border effect */
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.2); /* Subtle glow */
+}
+.img-placeholder {
+    width: 100%; height: 100%;
+    background-color: var(--bg-primary);
+    border-radius: 50%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+}
+.img-placeholder i { font-size: 60px; margin-bottom: 10px; }
+
+/* -------------------------------------------------------------------------- */
+/* 8. REVIEWS - Added Hover Effect */
+/* -------------------------------------------------------------------------- */
+.reviews-grid { grid-template-columns: repeat(3, 1fr); }
+.review-card {
+    background: var(--bg-secondary);
+    padding: 25px; border-radius: var(--radius);
+    border-left: 4px solid var(--accent-professional); /* Changed to professional blue */
+    box-shadow: var(--shadow-deep);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 10px var(--accent-professional); /* Subtle Blue Glow */
+}
+.review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.review-header i { font-size: 24px; color: var(--accent-main); }
+.stars { color: #ffd700; font-size: 1.1rem; }
+.review-text { font-style: italic; margin-bottom: 15px; }
+.review-client { color: var(--accent-contrast); font-weight: 700; } /* Changed to Silver/White */
+
+/* Existing miscellaneous and responsive styles (no change needed here) */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+a {
+    color: var(--accent-professional);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-main);
+}
+
+.section {
+    width: 100%;
+    padding: 6rem 0;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    text-shadow: none; /* Removed heavy glow */
+}
+
+.section-desc {
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+/* CONTACT DETAILS BLOCK SPECIFIC STYLES - Cleaned up color variables */
+.contact-info-block {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem auto 0 auto;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 900px;
+}
+
+.contact-item {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-item:hover {
+    background-color: rgba(106, 163, 255, 0.05); /* Slight accent hover */
+    transform: translateY(-5px);
+}
+
+.contact-item i {
+    font-size: 2rem;
+    color: var(--accent-professional); /* Changed to professional blue */
+    margin-bottom: 0.5rem;
+    text-shadow: none; /* Removed heavy glow */
+}
+
+.contact-item .label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+
+.contact-item .contact-link,
+.contact-item p:not(.label) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-contrast); /* Changed to Silver/White */
+    text-decoration: none;
+    word-break: break-word;
+}
+
+/* Animation Classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    .contact-info-block {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 9. SOCIALS & ENQUIRY - Added Brand Colors */
+/* -------------------------------------------------------------------------- */
+.socials-inner { text-align: center; }
+.social-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+.social-icon {
+    display: inline-flex; width: 50px; height: 50px; justify-content: center; align-items: center; /* Slightly smaller */
+    border-radius: 50%; font-size: 22px;
+    background: var(--bg-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary); /* Default color before brand override */
+    transition: all 0.3s;
+}
+/* Brand Specific Colors (Ensure Font Awesome classes are used in HTML) */
+.social-icon.youtube { color: #ff0000; }
+.social-icon.linkedin { color: #0077b5; }
+.social-icon.twitter { color: #1da1f2; }
+.social-icon.instagram { color: #e1306c; }
+
+.social-icon:hover { 
+    /* Keep the glow/scale subtle */
+    border-color: rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); 
+    transform: scale(1.1);
+}
+/* Hover effect for brand icons */
+.social-icon.youtube:hover { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); border-color: #ff0000; }
+.social-icon.linkedin:hover { box-shadow: 0 0 15px rgba(0, 119, 181, 0.6); border-color: #0077b5; }
+.social-icon.twitter:hover { box-shadow: 0 0 15px rgba(29, 161, 242, 0.6); border-color: #1da1f2; }
+.social-icon.instagram:hover { box-shadow: 0 0 15px rgba(225, 48, 108, 0.6); border-color: #e1306c; }
+
+
+.enquiry-form {
+    background: var(--bg-secondary);
+    padding: var(--spacing); border-radius: var(--radius);
+    max-width: 800px; margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-deep);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+
+label { font-size: 0.9rem; color: var(--accent-professional); margin-bottom: 8px; } /* Changed to professional blue */
+input[type="text"], 
+input[type="email"], 
+select, 
+textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 12px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: var(--font-body);
+}
+input:focus, 
+select:focus, 
+textarea:focus {
+    border-color: var(--accent-professional); /* Focus glow changed to professional blue */
+    box-shadow: 0 0 10px rgba(106, 163, 255, 0.3);
+}
+
+select {
+    appearance: none; 
+    /* Custom SVG for professional look (changed color to professional blue) */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236aa3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+select option {
+    background: var(--bg-secondary); 
+    color: var(--text-primary);
+}
+
+textarea { resize: vertical; }
+
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+.form-message {
+    color: var(--accent-contrast); /* Changed to silver/white */
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 10. FOOTER & MISC. */
+/* -------------------------------------------------------------------------- */
+.footer {
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--bg-secondary);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.footer-links a {
+    margin-left: 20px;
+    transition: color 0.3s;
+    color: var(--text-secondary);
+}
+.footer-links a:hover {
+    color: var(--accent-main);
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* 11. KEYFRAMES & MEDIA QUERIES (RE-CHECKED FOR CLEANER LAYOUT) */
+/* -------------------------------------------------------------------------- */
+
+@keyframes float {
+    0% { transform: translate(0, 0px); }
+    50% { transform: translate(0, -10px); }
+    100% { transform: translate(0, 0px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.3; }
+    50% { transform: scale(1.05); opacity: 0.5; } /* Softer pulse */
+    100% { transform: scale(0.9); opacity: 0.3; }
+}
+
+@media (max-width: 992px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .hero-content { order: 2; }
+    .hero-visual { order: 1; margin-bottom: 60px; }
+    .hero-cta { justify-content: center; }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .about-visual { order: 1; margin-bottom: 40px; }
+    .about-content { order: 2; max-width: none; }
+    /* Keeping stats centered for mobile */
+    .about-stats { padding: 0; display: block; }
+    .about-stats li { margin-bottom: 10px; }
+    
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-links { margin-top: 10px; }
+    .footer-links a { margin: 0 10px; }
+}
+
+@media (max-width: 768px) {
+    .section { padding: 80px 0; }
+    /* Mobile nav list styles (assuming JS adds 'open' class) */
+    .nav-list { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-secondary); padding: 20px 0; box-shadow: var(--shadow-deep); }
+    .nav-list.open { display: flex; } /* Changed 'active' to 'open' to match JS */
+    .nav-toggle { display: block; }
+
+    /* **Key Change for Responsiveness** */
+    /* Ensure grid columns adapt well on smaller screens, using minmax for fluid layout */
+    .thumbnails-grid, .videos-grid, .reviews-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller min size for mobile */
+    }
+
+    .form-row { grid-template-columns: 1fr; }
+}
